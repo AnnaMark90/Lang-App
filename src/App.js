@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
+import './App.module.css';
+import Dashboard from './components/Dashboard/Dashboard';
+import Header from './components/Header/Header';
+import Library from './components/Library/Library';
+import Games from './components/Games/Games';
+import Learn from './components/Learn/Learn';
 
 function App() {
+
+  const [library, setLibrary] = useState(JSON.parse(localStorage.getItem('library')) || []);
+  console.log(library);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <Routes>
+        <Route path='/' element={<Dashboard/>}/>
+        <Route path='/games' element={<Games/>}/>
+        <Route library={library} setLibrary={setLibrary} path='/library' element={<Library/>}/>
+        <Route path='/learn' element={<Learn/>}/>
+      </Routes>
     </div>
   );
 }
